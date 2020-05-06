@@ -20,7 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run dist
+      - run: cd dist && tar -czvf "../release-${GITHUB_REF##*/}.tar.gz" * && cd ..
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "dist/*"
+          artifacts: "*.tar.gz"
           token: ${{ secrets.GITHUB_TOKEN }}
